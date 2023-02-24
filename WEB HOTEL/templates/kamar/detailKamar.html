@@ -1,0 +1,36 @@
+<!-- Modal -->
+<div class="modal fade" id="detailModal{{row[3]}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Detail Kamar</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <div class="container">
+              <div class="row">
+                  <div class="mb-3">
+                      <label for="id" class="form-label">Id</label>
+                      <input type="text" class="form-control" id="id" value="{{ row[3]}}" name="id" autocomplete="off" readonly>
+                  </div>
+                  <div class="mb-3">
+                      <label for="jenis" class="form-label">Jenis Kamar</label>
+                      <input type="text" class="form-control" id="tipe" value="{{ row[0]}}" name="tipe" autocomplete="off" readonly>
+                  </div>
+                  <div class="mb-3">
+                      <label for="stock" class="form-label">Stock</label>
+                      <input type="text" class="form-control" id="stock" value="{{ row[1]}}" name="stock" autocomplete="off" readonly>
+                  </div>
+                  <div class="mb-3">
+                      <label for="harga" class="form-label">Harga</label>
+                      <input type="text" class="form-control" id="harga" value="{{ row[2]}}" name="harga" autocomplete="off" readonly>
+                  </div>
+              </div>
+          </div>
+      </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>

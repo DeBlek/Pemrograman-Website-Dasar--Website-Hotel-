@@ -1,0 +1,155 @@
+{% extends 'baseAdmin.html' %}
+{% block content %}
+
+<div class="container mt-3">
+  <div class="row">
+    <div class="col text-center mt-5">
+      <h2>Data Sewa</h2>
+    </div>
+  </div>
+  <div>
+    <a href="" type="button" class="btn btn-success" style="margin-bottom: 10px;" data-bs-toggle="modal" data-bs-target="#exampleModal">Tambah</a>
+    <a href="/sewa/print" type="button" class="btn btn-danger" style="margin-bottom: 10px;">Get PDF</a>
+  </div>
+  <div class="row">
+    <div class="col">
+      <!-- pesan flash -->
+      {% with messages = get_flashed_messages() %}
+        {% if messages %}
+          
+          {% for message in messages %}
+          <div class="alert alert-success alert-dismissible fade show" role="alert">
+            <strong>Proses Selesai.</strong> {{ message }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+          </div>
+          {% endfor %}
+          
+        {% endif %}
+      {% endwith %}
+     </div>
+   </div>
+   <div class="row">
+       <div class="col">
+          <table class="table" id="dataTable">
+              <thead>
+                <tr>
+                  <th scope="col">No</th>
+                  <th scope="col">Id Sewa</th>
+                  <th scope="col">Jenis Kamar</th>
+                  <th scope="col">Email</th>
+                  <th scope="col">Nama</th>
+                  <th scope="col">No.Telp</th>
+                  <th scope="col">Tanggal Checkin</th>
+                  <th scope="col">Tanggal Checkout</th>
+                  <th scope="col">Tanggal Booking</th>
+                  <th scope="col">Jumlah</th>
+                  <th scope="col">Status</th>
+                  <th scope="col">AKSI</th>
+                </tr>
+              </thead>
+              <tbody>
+                  {% for row in data_sewa  %}
+                <tr>
+                  <th scope="row">{{ loop.index }} </th>
+                  <td>{{row[0]}}</td>
+                  <td>{{row[1]}}</td>
+                  <td>{{row[2]}}</td>
+                  <td>{{row[3]}}</td>
+                  <td>{{row[4]}}</td>
+                  <td>{{row[5]}}</td>
+                  <td>{{row[6]}}</td>
+                  <td>{{row[9]}}</td>
+                  <td>{{row[7]}}</td>
+                  <td>
+                    {% if ( row[8] == "Diproses" ): %}
+                    <a href="#" type="button" class="btn btn-success">{{row[8]}}</a>
+                    {% elif ( row[8] == "Selesai" ): %}
+                    <a href="#" type="button" class="btn btn-danger">{{row[8]}}</a>
+                    {% else :%}
+                    <a href="#" type="button" class="btn btn-warning">{{row[8]}}</a>
+                    {% endif %}
+                  </td>
+                  <td>
+                    <a href="" type="button" class="btn btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#detailModal{{row[0]}}">Detail</a>
+                    <a href="" type="button" class="btn btn-outline-success" data-bs-toggle="modal" data-bs-target="#updateModal{{row[0]}}">Update</a>
+                    <a href="{{ url_for('deleteSewa', id_sewa=row[0])}}" type="button" class="btn btn-outline-danger" onclick="confirm('Anda Yakin ?');">Delete</a>
+                  </td>
+                </tr>
+                {% include "sewa/detailSewa.html" %}
+                {% include "sewa/updateSewa.html" %}
+                {% endfor %}                      
+              </tbody>
+            </table>
+            <p><strong style="color:red;">Perhatian !!!</strong></br>
+            Tekan tombol <strong style="color:green;">UPDATE</strong> untuk melakukan perubahan <strong style="color: goldenrod;">STATUS</strong></p>
+       </div>
+   </div>
+</div>
+
+<div class="modal" tabindex="-1" id="exampleModal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Tambah Sewa</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <form action="{{ url_for('inputSewa')}}" method="post">
+        <div class="modal-body">
+          <div class="container">
+            <div class="row">
+              <div class="mb-3">
+                <label for="email" class="form-label">Email</label>
+                <input type="email" class="form-control" id="email" name="email" autocomplete="off" required>
+              </div>
+              <div class="mb-3">
+                <label for="tipe" class="form-label">Type Kamar</label>
+                <select class="form-select" aria-label="Default select example" name="tipe" required>
+                    <option value="Single Room">Single Room</option>
+                    <option value="Superior Room">Superior Room</option>
+                    <option value="Deluxe Room">Deluxe Room</option>
+                    <option value="Twin Room">Twin Room</option>
+                    <option value="Standard Room">Standard Room</option>
+                    <option value="Double Room">Double Room</option>
+                </select>
+              </div>
+              <div class="mb-3">
+                <label for="nama" class="form-label">Nama</label>
+                <input type="text" class="form-control" id="nama" name="nama" autocomplete="off" required>
+              </div>
+              <div class="mb-3">
+                <label for="telp" class="form-label">No.Telp</label>
+                <input type="text" class="form-control" id="telp" name="telp" autocomplete="off" required>
+              </div>
+              <div class="mb-3">
+                <label for="checkin" class="form-label">Tanggal Check In</label>
+                <input type="date" class="form-control" id="checkin" name="checkin" required>
+              </div>
+              <div class="mb-3">
+                <label for="checkout" class="form-label">Tanggal Check Out</label>
+                <input type="date" class="form-control" id="checkout" name="checkout" required>
+              </div>
+              <div class="mb-3">
+                <label for="jumlah" class="form-label">Jumlah</label>
+                <input type="number" class="form-control" id="jumlah" name="jumlah" autocomplete="off" required>
+              </div>
+              <div class="mb-3">
+                <label for="status" class="form-label">Status</label>
+                <select class="form-select" aria-label="Default select example" name="status">
+                    <option value="Diproses">Diproses</option>
+                    <option value="Sewa">Sewa</option>
+                    <option value="Selesai">Selesai</option>
+                </select>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            <button type="submit" class="btn btn-primary" onclick="confirm('Anda Yakin');">SAVE</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+{% endblock %}

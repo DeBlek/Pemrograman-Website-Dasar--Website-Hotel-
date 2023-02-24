@@ -1,0 +1,136 @@
+{% extends 'baseAdmin.html' %}
+{% block content %}
+
+<div class="container mt-3">
+  <div class="row">
+      <div class="col text-center mt-5">
+          <h2>Data Customers</h2>
+      </div>
+  </div>
+  <div>
+    <a href="" type="button" class="btn btn-success" style="margin-bottom: 10px;" data-bs-toggle="modal" data-bs-target="#Modal1">Tambah</a>
+    <a href="" type="button" class="btn btn-danger" style="margin-bottom: 10px;" data-bs-toggle="modal" data-bs-target="#Modal2">Send Broadcast</a>
+  </div>
+  <div class="row">
+    <div class="col">
+      <!-- pesan flash -->
+      {% with messages = get_flashed_messages() %}
+        {% if messages %}
+          {% for message in messages %}
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+              <strong>Proses Selesai.</strong> {{ message }}
+              <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+          {% endfor %}
+        {% endif %}
+      {% endwith %}
+    </div>
+  </div>
+  <div class="row">
+      <div class="col">
+         <table class="table" id="dataTable">
+             <thead>
+               <tr>
+                 <th scope="col">No</th>
+                 <th scope="col">Email</th>
+                 <th scope="col">Id</th>
+                 <th scope="col">Nama</th>
+                 <th scope="col">Password</th>
+                 <th scope="col">AKSI</th>
+               </tr>
+             </thead>
+             <tbody>
+                 {% for row in data_pelanggan  %}
+               <tr>
+                 <th scope="row">{{ loop.index }} </th>
+                 <td>{{row[0]}}</td>
+                 <td>{{row[1]}}</td>
+                 <td>{{row[2]}}</td>
+                 <td>{{row[3]}}</td>
+                 <td>
+                   <a href="" type="button" class="btn btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#detailModal{{row[1]}}">Detail</a>
+                   <a href="" type="button" class="btn btn-outline-success" data-bs-toggle="modal" data-bs-target="#updateModal{{row[1]}}">Update</a>
+                   <a href="{{ url_for('deletePelanggan', id_pelanggan=row[1])}}" type="button" class="btn btn-outline-danger" onclick="confirm('Anda Yakin ?');">Delete</a>
+                 </td>
+               </tr>
+               {% include "customer/detailPelanggan.html" %}
+               {% include "customer/updatePelanggan.html" %}
+               {% endfor %}                      
+             </tbody>
+           </table>
+           <p><strong style="color:red;">Perhatian !!!</strong></br>
+           Tekan tombol <strong style="color:green;">UPDATE</strong> untuk melakukan perubahan <strong style="color: goldenrod;">STATUS</strong></p>
+      </div>
+  </div>
+</div>
+
+<div class="modal" tabindex="-1" id="Modal1">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Tambah Data Pelanggan</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <form action="{{ url_for('inputPelanggan')}}" method="post">
+        <div class="modal-body">
+          <div class="container">
+            <div class="row">
+              <div class="mb-3">
+                  <label for="email" class="form-label">Email</label>
+                  <input type="email" class="form-control" id="em" name="email" autocomplete="off" required>
+              </div>
+              <div class="mb-3">
+                  <label for="username" class="form-label">Username</label>
+                  <input type="text" class="form-control" id="nm"name="name" autocomplete="off" required>
+              </div>
+              <div class="mb-3">
+                  <label for="password" class="form-label">Password</label>
+                  <input type="text" class="form-control" id="pw" name="password" autocomplete="off" required>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            <button type="submit" class="btn btn-primary" onclick="confirm('Anda Yakin');">SAVE</button>
+        </div>
+    </form>
+    </div>
+  </div>
+</div>
+
+<div class="modal" tabindex="-1" id="Modal2">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Send Broadcast Email</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <form action="{{ url_for('mail')}}" method="post">
+        <div class="modal-body">
+          <div class="container">
+            <div class="row">
+              <div class="mb-3">
+                <label for="email" class="form-label">Email Customer</label>
+                <input type="text" class="form-control" id="email" name="email_broadcast" value="{{ email }}" autocomplete="off" readonly>
+              </div>
+              <div class="mb-3">
+                <label for="username" class="form-label">Subject</label>
+                <input type="text" class="form-control" id="subject"name="subject" autocomplete="off" required>
+              </div>
+              <div class="mb-3">
+                <label for="message" class="form-label">Message</label>
+                <textarea class="form-control" name="msg" id="msg" cols="30" rows="10"></textarea>
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            <button type="submit" class="btn btn-primary" onclick="confirm('Anda Yakin');">Send</button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+{% endblock %}

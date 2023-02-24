@@ -1,0 +1,127 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+
+    <title>Hotel JRW</title>
+  </head>
+  <body>
+    <!-- start navbar top -->
+    <nav id="navbar-example2" class="navbar navbar-light bg-light px-3 fixed-top">
+        <div class="container">
+          <a class="navbar-brand" href="{{ url_for('home') }}">Hotel JRW</a>
+          <ul class="nav nav-pills">
+            <li class="nav-item">
+              <a class="nav-link" href="/">Home</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/#booking">Booking</a>
+            </li>
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">{{ username }}</a>
+              <ul class="dropdown-menu">
+                <li><a class="dropdown-item" href="#">Status</a></li>              
+                <li><hr class="dropdown-divider"></li>
+                <li><a class="dropdown-item" href="{{ url_for('logout') }}">Log out</a></li>
+              </ul>
+            </li>
+          </ul>
+        </div>
+        </nav>
+        <!-- end navbar top -->
+        <!-- start content -->
+        <div data-bs-spy="scroll" data-bs-target="#navbar-example2" data-bs-offset="0" class="scrollspy-example" tabindex="0">
+          
+<!-- start booking buku -->
+<div class="container" id="booking">
+    <div class="row">
+        <div class="col text-center mb-3">
+            <h4>Status Booking Hotel</h4>
+        </div>             
+    </div>
+    <div class="row">
+        <div class="row">
+            <div class="col text-center mt-5">
+                <h4>Status Booking <strong style="color:red;">{{username}}</strong></h4>
+            </div>             
+        </div>
+        <div class="col">
+            <table class="table" id="dataTable">
+                <thead>
+                    <tr>
+                        <th scope="col">No</th>
+                        <th scope="col">Id Sewa</th>
+                        <th scope="col">Jenis Kamar</th>
+                        <th scope="col">Email</th>
+                        <th scope="col">Nama</th>
+                        <th scope="col">No.Telp</th>
+                        <th scope="col">Tanggal Checkin</th>
+                        <th scope="col">Tanggal Checkout</th>
+                        <th scope="col">Tanggal Booking</th>
+                        <th scope="col">Jumlah</th>
+                        <th scope="col">Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+
+                {% for row in data_sewa  %}
+                    <tr>
+                        <th scope="row">{{ loop.index }} </th>
+                        <td>{{row[0]}}</td>
+                        <td>{{row[1]}}</td>
+                        <td>{{row[2]}}</td>
+                        <td>{{row[3]}}</td>
+                        <td>{{row[4]}}</td>
+                        <td>{{row[5]}}</td>
+                        <td>{{row[6]}}</td>
+                        <td>{{row[9]}}</td>
+                        <td>{{row[7]}}</td>
+                        <td>
+                            {% if ( row[8] == "Diproses" ): %}
+                            <a href="#" type="button" class="btn btn-success">{{row[8]}}</a>
+                            {% elif ( row[8] == "Selesai" ): %}
+                            <a href="#" type="button" class="btn btn-danger">{{row[8]}}</a>
+                            {% else :%}
+                            <a href="#" type="button" class="btn btn-warning">{{row[8]}}</a>
+                            {% endif %}
+                        </td>
+                    </tr>
+                    {% endfor %}                      
+                </tbody>
+            </table>
+            <p><strong style="color:red;">Perhatian !!!</strong></br>
+            Tekan tombol <strong style="color:green;">UPDATE</strong> untuk melakukan perubahan <strong style="color: goldenrod;">STATUS</strong></p>
+        </div>
+    </div>
+</div>
+
+        </div>
+        <!-- end content -->
+
+        <div class="container">
+            <div class="row">
+                <div class="col mt-5">
+                  <nav class="navbar navbar-light bg-light px-3 fixed-bottom">
+                      <marquee> | HOTEL JRW | Alamat : Jalan Baru | Phone : 081252503754100 | email:HotelJRW@gmail.com</marquee>
+                  </nav>
+                </div>
+            </div>
+        </div>
+
+    <!-- Optional JavaScript; choose one of the two! -->
+
+    <!-- Option 1: Bootstrap Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+
+    <!-- Option 2: Separate Popper and Bootstrap JS -->
+    <!--
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>
+    -->
+  </body>
+</html>

@@ -1,0 +1,71 @@
+<!-- Modal -->
+<div class="modal fade" id="updateModal{{row[0]}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Update Sewa</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form action="{{ url_for('updateSewa')}}" method="post">
+                <div class="modal-body">
+                    <div class="container">
+                        <div class="row">
+                            <div class="mb-3">
+                                <label for="idBook" class="form-label">Id Booking</label>
+                                <input type="text" class="form-control" id="idBook" value="{{ row[0]}}" name="id" autocomplete="off" readonly>
+                            </div>
+                            <div class="mb-3">
+                                <label for="email" class="form-label">Email</label>
+                                <input type="email" class="form-control" id="email" value="{{ row[2]}}" name="email" autocomplete="off" readonly>
+                            </div>
+                            <div class="mb-3">
+                                <label for="tipe" class="form-label">Type Kamar</label>
+                                <select class="form-select" aria-label="Default select example" name="tipe">
+                                    <option value="Single Room">Single Room</option>
+                                    <option value="Superior Room">Superior Room</option>
+                                    <option value="Deluxe Room">Deluxe Room</option>
+                                    <option value="Twin Room">Twin Room</option>
+                                    <option value="Standard Room">Standard Room</option>
+                                    <option value="Double Room">Double Room</option>
+                                </select>
+                            </div>
+                            <div class="mb-3">
+                                <label for="nama" class="form-label">Nama</label>
+                                <input type="text" class="form-control" id="nama" value="{{ row[3]}}" name="nama" autocomplete="off" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="telp" class="form-label">No.Telp</label>
+                                <input type="text" class="form-control" id="telp" value="{{ row[4]}}" name="telp" autocomplete="off" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="checkin" class="form-label">Tanggal Check In</label>
+                                <input type="date" class="form-control" id="checkin" value="{{ row[5]}}"  name="checkin" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="checkout" class="form-label">Tanggal Check Out</label>
+                                <input type="date" class="form-control" id="checkout" value="{{ row[6]}}"  name="checkout" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="jumlah" class="form-label">Jumlah</label>
+                                <input type="number" class="form-control" id="jumlah" value="{{ row[7]}}" name="jumlah" autocomplete="off" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="status" class="form-label">Status</label>
+                                <select class="form-select" aria-label="Default select example" name="status">
+                                    <option value="{{ row[8] }}">{{ row[8] }}</option>
+                                    <option value="Diproses">Diproses</option>
+                                    <option value="Sewa">Sewa</option>
+                                    <option value="Selesai">Selesai</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary" onclick="confirm('Anda Yakin');">UPDATE</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

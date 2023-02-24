@@ -1,0 +1,100 @@
+{% extends 'baseAdmin.html' %}
+{% block content %}
+
+<div class="container mt-3">
+  <div class="row">
+      <div class="col text-center mt-5">
+          <h2>Data Kamar</h2>
+      </div>
+  </div>
+  <div>
+   <a href="" type="button" class="btn btn-success" style="margin-bottom: 10px;" data-bs-toggle="modal" data-bs-target="#exampleModal">Tambah</a>
+  </div>
+  <div class="row">
+    <div class="col">
+      <!-- pesan flash -->
+      {% with messages = get_flashed_messages() %}
+        {% if messages %}
+          {% for message in messages %}
+          <div class="alert alert-success alert-dismissible fade show" role="alert">
+            <strong>Proses Selesai.</strong> {{ message }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+          </div>
+          {% endfor %}
+        {% endif %}
+      {% endwith %}
+    </div>
+  </div>
+  <div class="row">
+      <div class="col">
+         <table class="table" id="dataTable">
+             <thead>
+               <tr>
+                 <th scope="col">No</th>
+                 <th scope="col">Jenis Kamar</th>
+                 <th scope="col">Stock</th>
+                 <th scope="col">Harga</th>
+                 <th scope="col">Id Kamar</th>
+                 <th scope="col">AKSI</th>
+               </tr>
+             </thead>
+             <tbody>
+                 {% for row in data_kamar  %}
+               <tr>
+                 <th scope="row">{{ loop.index }} </th>
+                 <td>{{row[0]}}</td>
+                 <td>{{row[1]}}</td>
+                 <td>{{row[2]}}</td>
+                 <td>{{row[3]}}</td>
+                 <td>
+                   <a href="" type="button" class="btn btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#detailModal{{row[3]}}">Detail</a>
+                   <a href="" type="button" class="btn btn-outline-success" data-bs-toggle="modal" data-bs-target="#updateModal{{row[3]}}">Update</a>
+                   <a href="{{ url_for('deleteKamar', id=row[3])}}" type="button" class="btn btn-outline-danger" onclick="confirm('Anda Yakin ?');">Delete</a>
+                 </td>
+               </tr>
+               {% include "kamar/detailKamar.html" %}
+               {% include "kamar/updateKamar.html" %}
+               {% endfor %}                      
+             </tbody>
+           </table>
+           <p><strong style="color:red;">Perhatian !!!</strong></br>
+           Tekan tombol <strong style="color:green;">UPDATE</strong> untuk melakukan perubahan <strong style="color: goldenrod;">STATUS</strong></p>
+      </div>
+  </div>
+</div>
+
+<div class="modal" tabindex="-1" id="exampleModal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Tambah Kamar</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <form action="{{ url_for('inputKamar')}}" method="post">
+        <div class="modal-body">
+          <div class="container">
+            <div class="row">
+              <div class="mb-3">
+                  <label for="jenis" class="form-label">Jenis Kamar</label>
+                  <input type="text" class="form-control" id="tipe" name="tipe" autocomplete="off" required>
+              </div>
+              <div class="mb-3">
+                  <label for="stock" class="form-label">Stock</label>
+                  <input type="text" class="form-control" id="stock" name="stock" autocomplete="off" required>
+              </div>
+              <div class="mb-3">
+                  <label for="harga" class="form-label">Harga</label>
+                  <input type="text" class="form-control" id="harga" name="harga" autocomplete="off" required>
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+              <button type="submit" class="btn btn-primary" onclick="confirm('Anda Yakin');">SAVE</button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+{% endblock %}

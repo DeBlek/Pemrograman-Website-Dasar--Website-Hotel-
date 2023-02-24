@@ -1,0 +1,56 @@
+<!-- Modal -->
+<div class="modal fade" id="detailModal{{row[0]}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Detail Sewa</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <div class="container">
+              <div class="row">
+                  <div class="mb-3">
+                      <label for="idBook" class="form-label">Id Booking</label>
+                      <input type="text" class="form-control" id="idBook" value="{{ row[0]}}" name="id" autocomplete="off" readonly>
+                  </div>
+                  <div class="mb-3">
+                    <label for="tipe" class="form-label">Type Kamar</label>
+                    <input type="text" class="form-control" id="tipe" value="{{ row[1]}}" name="tipe" autocomplete="off" readonly>
+                  </div>
+                  <div class="mb-3">
+                      <label for="email" class="form-label">Email</label>
+                      <input type="email" class="form-control" id="email" value="{{ row[2]}}" name="email" autocomplete="off" readonly>
+                  </div>
+                  <div class="mb-3">
+                      <label for="nama" class="form-label">Nama</label>
+                      <input type="text" class="form-control" id="nama" value="{{ row[3]}}" name="nama" autocomplete="off" readonly>
+                  </div>
+                  <div class="mb-3">
+                      <label for="telp" class="form-label">No.Telp</label>
+                      <input type="text" class="form-control" id="telp" value="{{ row[4]}}" name="telp" autocomplete="off" readonly>
+                  </div>
+                  <div class="mb-3">
+                      <label for="checkin" class="form-label">Tanggal Check In</label>
+                      <input type="date" class="form-control" id="checkin" value="{{ row[5]}}"  name="checkin" readonly>
+                  </div>
+                  <div class="mb-3">
+                      <label for="checkout" class="form-label">Tanggal Check Out</label>
+                      <input type="date" class="form-control" id="checkout" value="{{ row[6]}}"  name="checkout" readonly>
+                  </div>
+                  <div class="mb-3">
+                      <label for="jumlah" class="form-label">Jumlah</label>
+                      <input type="number" class="form-control" id="jumlah" value="{{ row[7]}}" name="jumlah" autocomplete="off" readonly>
+                  </div>
+                  <div class="mb-3">
+                    <label for="status" class="form-label">Status</label>
+                    <input type="text" class="form-control" id="status" value="{{ row[8]}}" name="id" autocomplete="off" readonly>
+                  </div>
+              </div>
+          </div>
+      </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
